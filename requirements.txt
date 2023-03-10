@@ -1,0 +1,9 @@
+openai
+transformers
+langchain
+python-magic-bin
+nltk
+unstructured
+chromadb==0.3.10
+numpy==1.22.0
+deeplake

@@ -1,0 +1,166 @@
+{
+    "sourceFile": "csvtotext.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 37,
+            "patches": [
+                {
+                    "date": 1678418251739,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1678418344401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,6 +3,8 @@\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n-            [ my_output_file.write(\" \".join(row)+'\\n') for row in csv.reader(my_input_file)]\r\n+            reader = csv.reader(my_input_file)\r\n+            headers = reader[0]\r\n+            [ my_output_file.write(\" \".join(row)+'\\n') for row in reader]\r\n         my_output_file.close()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1678418438655,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,7 +4,7 @@\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n             reader = csv.reader(my_input_file)\r\n-            headers = reader[0]\r\n+            headers = \" \".join(reader[0])+'\\n'\r\n             [ my_output_file.write(\" \".join(row)+'\\n') for row in reader]\r\n         my_output_file.close()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1678418509216,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,7 +4,14 @@\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n             reader = csv.reader(my_input_file)\r\n-            headers = \" \".join(reader[0])+'\\n'\r\n+            for row in reader:\r\n+                if line_count == 0:\r\n+                    headers = \", \".join(row)\r\n+                    line_count += 1\r\n+                else:\r\n+                    print(f'\\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')\r\n+                    line_count += 1\r\n+             = \" \".join(reader[0])+'\\n'\r\n             [ my_output_file.write(\" \".join(row)+'\\n') for row in reader]\r\n         my_output_file.close()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1678418522474,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n         with open(csv_file, \"r\") as my_input_file:\r\n             reader = csv.reader(my_input_file)\r\n             for row in reader:\r\n                 if line_count == 0:\r\n-                    headers = \", \".join(row)\r\n+                    headers = \", \".join(row) + \" \"\r\n                     line_count += 1\r\n                 else:\r\n                     print(f'\\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')\r\n                     line_count += 1\r\n"
+                },
+                {
+                    "date": 1678418528929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n             reader = csv.reader(my_input_file)\r\n             for row in reader:\r\n                 if line_count == 0:\r\n                     headers = \", \".join(row) + \" \"\r\n-                    line_count += 1\r\n+                    print(headers)\r\n                 else:\r\n                     print(f'\\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')\r\n                     line_count += 1\r\n              = \" \".join(reader[0])+'\\n'\r\n"
+                },
+                {
+                    "date": 1678418577300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,15 +3,16 @@\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n+            line_count = 0\r\n             reader = csv.reader(my_input_file)\r\n             for row in reader:\r\n                 if line_count == 0:\r\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n+                    line_count += 1\r\n                 else:\r\n-                    print(f'\\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')\r\n+                    my_output_file.write(\" \".join(row)+'\\n')\r\n                     line_count += 1\r\n\\ No newline at end of file\n-             = \" \".join(reader[0])+'\\n'\r\n-            [ my_output_file.write(\" \".join(row)+'\\n') for row in reader]\r\n-        my_output_file.close()\n+        my_output_file.close()\r\n+    print(f'Processed {line_count} lines.')\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1678419248239,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n import csv\r\n \r\n+csv_file = \"data\\amazon_reviews_test\\Reviews.csv\"\r\n+csv_file = \"data\\amazon_reviews_test\\Reviews.csv\"\r\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n"
+                },
+                {
+                    "date": 1678419256214,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import csv\r\n \r\n csv_file = \"data\\amazon_reviews_test\\Reviews.csv\"\r\n-csv_file = \"data\\amazon_reviews_test\\Reviews.csv\"\r\n+csv_file = \"data\\amazon_reviews_test_text\\Reviews.txt\"\r\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n"
+                },
+                {
+                    "date": 1678419282126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,11 @@\n import csv\r\n \r\n csv_file = \"data\\amazon_reviews_test\\Reviews.csv\"\r\n-csv_file = \"data\\amazon_reviews_test_text\\Reviews.txt\"\r\n+txt_file = \"data\\amazon_reviews_test_text\\Reviews.txt\"\r\n \r\n+csv2text(csv_file, txt_file)\r\n+\r\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n             line_count = 0\r\n"
+                },
+                {
+                    "date": 1678419293015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n \r\n csv_file = \"data\\amazon_reviews_test\\Reviews.csv\"\r\n txt_file = \"data\\amazon_reviews_test_text\\Reviews.txt\"\r\n \r\n-csv2text(csv_file, txt_file)\r\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n@@ -18,5 +17,7 @@\n                 else:\r\n                     my_output_file.write(\" \".join(row)+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n-    print(f'Processed {line_count} lines.')\n\\ No newline at end of file\n+    print(f'Processed {line_count} lines.')\r\n+\r\n+csv2text(csv_file, txt_file)\r\n"
+                },
+                {
+                    "date": 1678419301951,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import csv\r\n \r\n-csv_file = \"data\\amazon_reviews_test\\Reviews.csv\"\r\n-txt_file = \"data\\amazon_reviews_test_text\\Reviews.txt\"\r\n+csv_file = \"data/amazon_reviews_test\\Reviews.csv\"\r\n+txt_file = \"data/amazon_reviews_test_text\\Reviews.txt\"\r\n \r\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n"
+                },
+                {
+                    "date": 1678419317932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import csv\r\n \r\n-csv_file = \"data/amazon_reviews_test\\Reviews.csv\"\r\n-txt_file = \"data/amazon_reviews_test_text\\Reviews.txt\"\r\n+csv_file = \"/data/amazon_reviews_test/Reviews.csv\"\r\n+txt_file = \"/data/amazon_reviews_test_text/Reviews.txt\"\r\n \r\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n"
+                },
+                {
+                    "date": 1678419345204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,12 @@\n import csv\r\n \r\n-csv_file = \"/data/amazon_reviews_test/Reviews.csv\"\r\n-txt_file = \"/data/amazon_reviews_test_text/Reviews.txt\"\r\n+csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n+txt_file = \"data/amazon_reviews_test_text/Reviews.txt\"\r\n \r\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n-    with open(txt_file, \"w\") as my_output_file:\r\n+    with open(txt_file, \"w+\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n             line_count = 0\r\n             reader = csv.reader(my_input_file)\r\n             for row in reader:\r\n"
+                },
+                {
+                    "date": 1678419375489,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n txt_file = \"data/amazon_reviews_test_text/Reviews.txt\"\r\n \r\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n-    with open(txt_file, \"w+\") as my_output_file:\r\n+    with open(txt_file, \"x\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n             line_count = 0\r\n             reader = csv.reader(my_input_file)\r\n             for row in reader:\r\n"
+                },
+                {
+                    "date": 1678419385087,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n txt_file = \"data/amazon_reviews_test_text/Reviews.txt\"\r\n \r\n \r\n def csv2text(csv_file: str, txt_file: str):\r\n-    with open(txt_file, \"x\") as my_output_file:\r\n+    with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n             line_count = 0\r\n             reader = csv.reader(my_input_file)\r\n             for row in reader:\r\n"
+                },
+                {
+                    "date": 1678419439420,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    my_output_file.write(\" \".join(row)+'\\n')\r\n+                    my_output_file.write(\" \".join(headers, row)+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678419460539,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    my_output_file.write(\" \".join(headers, row)+'\\n')\r\n+                    my_output_file.write(\" \".join([headers, row])+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678419532758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    my_output_file.write(\" \".join([headers, row])+'\\n')\r\n+                    my_output_file.write(\" \".join(headers.extend(rows))+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678419539548,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    my_output_file.write(\" \".join(headers.extend(rows))+'\\n')\r\n+                    my_output_file.write(\" \".join([headers].extend(rows))+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678419546909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    my_output_file.write(\" \".join([headers].extend(rows))+'\\n')\r\n+                    my_output_file.write(\" \".join([headers].extend(row))+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678419611806,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    my_output_file.write(\" \".join([headers].extend(row))+'\\n')\r\n+                    my_output_file.write(\" \".join(row.insert(0, headers))+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678419632693,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,10 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    my_output_file.write(\" \".join(row.insert(0, headers))+'\\n')\r\n+                    field = row.insert(0, headers)\r\n+                    my_output_file.write(\" \".join(field)+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678419645230,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,10 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    field = row.insert(0, headers)\r\n-                    my_output_file.write(\" \".join(field)+'\\n')\r\n+                    fields = row.insert(0, headers)\r\n+                    my_output_file.write(\" \".join(fields)+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678419651920,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n                     fields = row.insert(0, headers)\r\n+                    print(fields)\r\n                     my_output_file.write(\" \".join(fields)+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n"
+                },
+                {
+                    "date": 1678419667146,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n                     fields = row.insert(0, headers)\r\n-                    print(fields)\r\n+                    print(row, fields)\r\n                     my_output_file.write(\" \".join(fields)+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n"
+                },
+                {
+                    "date": 1678419686963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,11 +14,11 @@\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n-                    fields = row.insert(0, headers)\r\n-                    print(row, fields)\r\n-                    my_output_file.write(\" \".join(fields)+'\\n')\r\n+                    row.insert(0, headers)\r\n+                    print(row)\r\n+                    my_output_file.write(\" \".join(row)+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678420105911,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n import csv\r\n \r\n csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n-txt_file = \"data/amazon_reviews_test_text/Reviews.txt\"\r\n+txt_dir = \"data/amazon_reviews_test_text/Reviews.txt\"\r\n \r\n \r\n-def csv2text(csv_file: str, txt_file: str):\r\n+def csv2text(csv_file: str, txt_file: str, primary_key_field):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n             line_count = 0\r\n             reader = csv.reader(my_input_file)\r\n@@ -15,9 +15,8 @@\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n                     row.insert(0, headers)\r\n-                    print(row)\r\n                     my_output_file.write(\" \".join(row)+'\\n')\r\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n"
+                },
+                {
+                    "date": 1678420313124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,16 @@\n import csv\r\n \r\n csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n txt_dir = \"data/amazon_reviews_test_text/Reviews.txt\"\r\n+primary_key_field = 'ID'\r\n \r\n-\r\n-def csv2text(csv_file: str, txt_file: str, primary_key_field):\r\n+def csv2text(csv_file: str, txt_file: str, prm_key_field: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n             line_count = 0\r\n             reader = csv.reader(my_input_file)\r\n+            prm_key_index = 0\r\n             for row in reader:\r\n                 if line_count == 0:\r\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n@@ -20,5 +21,5 @@\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n-csv2text(csv_file, txt_file)\r\n+csv2text(csv_file, txt_dir)\r\n"
+                },
+                {
+                    "date": 1678420375538,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import csv\r\n \r\n csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n-txt_dir = \"data/amazon_reviews_test_text/Reviews.txt\"\r\n-primary_key_field = 'ID'\r\n+txt_dir = \"data/amazon_reviews_test_text/\"\r\n+primary_key_field = 'Id'\r\n \r\n def csv2text(csv_file: str, txt_file: str, prm_key_field: str):\r\n     with open(txt_file, \"w\") as my_output_file:\r\n         with open(csv_file, \"r\") as my_input_file:\r\n@@ -11,8 +11,9 @@\n             reader = csv.reader(my_input_file)\r\n             prm_key_index = 0\r\n             for row in reader:\r\n                 if line_count == 0:\r\n+                    prm_key_index = row.index(prm_key_fieldm)\r\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n@@ -21,5 +22,5 @@\n                     line_count += 1\r\n         my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n-csv2text(csv_file, txt_dir)\r\n+csv2text(csv_file, txt_dir, primary_key_field)\r\n"
+                },
+                {
+                    "date": 1678420487567,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,24 +3,29 @@\n csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n txt_dir = \"data/amazon_reviews_test_text/\"\r\n primary_key_field = 'Id'\r\n \r\n-def csv2text(csv_file: str, txt_file: str, prm_key_field: str):\r\n-    with open(txt_file, \"w\") as my_output_file:\r\n-        with open(csv_file, \"r\") as my_input_file:\r\n+def csv2text(csv_file: str, txt_dir: str, prm_key_field: str):\r\n+    with open(csv_file, \"r\") as my_input_file:\r\n             line_count = 0\r\n             reader = csv.reader(my_input_file)\r\n             prm_key_index = 0\r\n             for row in reader:\r\n                 if line_count == 0:\r\n-                    prm_key_index = row.index(prm_key_fieldm)\r\n+                    prm_key_index = row.index(prm_key_field)\r\n                     headers = \", \".join(row) + \" \"\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n+                    prm_key = row[prm_key_index]\r\n+                    output_path = f\"{prm_key}\"\r\n+\r\n                     row.insert(0, headers)\r\n                     my_output_file.write(\" \".join(row)+'\\n')\r\n                     line_count += 1\r\n-        my_output_file.close()\r\n+\r\n+                    \r\n+                    with open(txt_dir, \"w\") as my_output_file:\r\n+                        my_output_file.close()\r\n     print(f'Processed {line_count} lines.')\r\n \r\n csv2text(csv_file, txt_dir, primary_key_field)\r\n"
+                },
+                {
+                    "date": 1678420533536,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,10 +22,10 @@\n                     row.insert(0, headers)\r\n                     my_output_file.write(\" \".join(row)+'\\n')\r\n                     line_count += 1\r\n \r\n-                    \r\n-                    with open(txt_dir, \"w\") as my_output_file:\r\n+                    with open(output_path, \"w\") as my_output_file:\r\n                         my_output_file.close()\r\n+                        \r\n     print(f'Processed {line_count} lines.')\r\n \r\n csv2text(csv_file, txt_dir, primary_key_field)\r\n"
+                },
+                {
+                    "date": 1678420548531,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,13 +19,13 @@\n                     prm_key = row[prm_key_index]\r\n                     output_path = f\"{prm_key}\"\r\n \r\n                     row.insert(0, headers)\r\n-                    my_output_file.write(\" \".join(row)+'\\n')\r\n                     line_count += 1\r\n \r\n                     with open(output_path, \"w\") as my_output_file:\r\n+                        my_output_file.write(\" \".join(row)+'\\n')\r\n                         my_output_file.close()\r\n-                        \r\n+\r\n     print(f'Processed {line_count} lines.')\r\n \r\n csv2text(csv_file, txt_dir, primary_key_field)\r\n"
+                },
+                {
+                    "date": 1678420566287,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n                     prm_key = row[prm_key_index]\r\n-                    output_path = f\"{prm_key}\"\r\n+                    output_path = f\"{prm_key}.txt\"\r\n \r\n                     row.insert(0, headers)\r\n                     line_count += 1\r\n \r\n"
+                },
+                {
+                    "date": 1678420591741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n                     prm_key = row[prm_key_index]\r\n-                    output_path = f\"{prm_key}.txt\"\r\n+                    output_path = f\"{txt_dir}/{prm_key}.txt\"\r\n \r\n                     row.insert(0, headers)\r\n                     line_count += 1\r\n \r\n"
+                },
+                {
+                    "date": 1678420692254,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import csv\r\n \r\n csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n-txt_dir = \"data/amazon_reviews_test_text/\"\r\n+txt_dir = \"data/amazon_reviews_test_text\"\r\n primary_key_field = 'Id'\r\n \r\n def csv2text(csv_file: str, txt_dir: str, prm_key_field: str):\r\n     with open(csv_file, \"r\") as my_input_file:\r\n"
+                },
+                {
+                    "date": 1678421978843,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import csv\r\n \r\n-csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n-txt_dir = \"data/amazon_reviews_test_text\"\r\n+csv_file = \"data/amazon_reviews/Reviews.csv\"\r\n+txt_dir = \"data/amazon_reviews_text\"\r\n primary_key_field = 'Id'\r\n \r\n def csv2text(csv_file: str, txt_dir: str, prm_key_field: str):\r\n     with open(csv_file, \"r\") as my_input_file:\r\n"
+                },
+                {
+                    "date": 1678422820953,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n                     row.insert(0, headers)\r\n                     line_count += 1\r\n \r\n                     with open(output_path, \"w\") as my_output_file:\r\n-                        my_output_file.write(\" \".join(row)+'\\n')\r\n+                        my_output_file.write(\", \".join(row)+'\\n')\r\n                         my_output_file.close()\r\n \r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                }
+            ],
+            "date": 1678418251739,
+            "name": "Commit-0",
+            "content": "import csv\r\n\r\n\r\ndef csv2text(csv_file: str, txt_file: str):\r\n    with open(txt_file, \"w\") as my_output_file:\r\n        with open(csv_file, \"r\") as my_input_file:\r\n            [ my_output_file.write(\" \".join(row)+'\\n') for row in csv.reader(my_input_file)]\r\n        my_output_file.close()"
+        }
+    ]
+}

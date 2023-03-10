@@ -1,0 +1,158 @@
+{
+    "sourceFile": "main.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 35,
+            "patches": [
+                {
+                    "date": 1678412092969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1678412114533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,23 +1,11 @@\n import sys\r\n from gpt import Gpt\r\n \r\n \r\n-def main(user_input):\r\n+def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    \r\n-    prompt = 'Food:' + user_input + \\\r\n-        '. Return the serving calories and nutrition as one JSON in the form of {\"items\": [{\"item_name\": string,\"calories\": number,\"protein\": number,\"carbohydrates\": number, \"fat\": number, \"servings\": number, \"unit\": string}, ...]}'\r\n \r\n-    ai = Gpt(api_key=api_key)\r\n \r\n-    nutrition = ai.generate_response(prompt=prompt)\r\n \r\n-    return nutrition.strip()\r\n-\r\n-\r\n if __name__ == \"__main__\":\r\n-    user_input = sys.argv[1]\r\n-    # user_input = \"3 crepes, 6 tbsp of hershey's syrup:\"\r\n-    response = main(user_input)\r\n-    print(response)\r\n-    # sys.stdout.write(response)\r\n+    main()\r\n"
+                },
+                {
+                    "date": 1678412133339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n-import sys\r\n+import os\r\n from gpt import Gpt\r\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n+    print(api_key)\r\n \r\n \r\n-\r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678414085180,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n+    datasets_directory = 'data/kaggle_food_nutrition'\r\n     print(api_key)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n"
+                },
+                {
+                    "date": 1678414122937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,12 @@\n import os\r\n-from gpt import Gpt\r\n+from llm import LLM\r\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/kaggle_food_nutrition'\r\n+    datasets_directory = '/data/kaggle_food_nutrition'\r\n+    gpt = LLM(api_key=api_key)\r\n     print(api_key)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n"
+                },
+                {
+                    "date": 1678414142281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = '/data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n+    \r\n     print(api_key)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n"
+                },
+                {
+                    "date": 1678414157296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = '/data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n-    \r\n+    gpt.createEmbedding(datasets_directory=datasets_directory)\r\n     print(api_key)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n"
+                },
+                {
+                    "date": 1678414214339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = '/data/kaggle_food_nutrition'\r\n+    datasets_directory = 'data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n     gpt.createEmbedding(datasets_directory=datasets_directory)\r\n     print(api_key)\r\n \r\n"
+                },
+                {
+                    "date": 1678414906638,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n-    gpt.createEmbedding(datasets_directory=datasets_directory)\r\n+    texts = gpt.createEmbedding(datasets_directory=datasets_directory)\r\n     print(api_key)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n"
+                },
+                {
+                    "date": 1678414915501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n     texts = gpt.createEmbedding(datasets_directory=datasets_directory)\r\n+    print(len(texts))\r\n     print(api_key)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n"
+                },
+                {
+                    "date": 1678414947943,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n-    texts = gpt.createEmbedding(datasets_directory=datasets_directory)\r\n+    texts = gpt.createTexts(datasets_directory=datasets_directory)\r\n     print(len(texts))\r\n     print(api_key)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1678415098133,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,8 @@\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n     texts = gpt.createTexts(datasets_directory=datasets_directory)\r\n     print(len(texts))\r\n-    print(api_key)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678415127170,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n     texts = gpt.createTexts(datasets_directory=datasets_directory)\r\n-    print(len(texts))\r\n+    print(texts)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678415229170,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n     texts = gpt.createTexts(datasets_directory=datasets_directory)\r\n-    print(texts)\r\n+    print(len(texts))\r\n \r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678415735496,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n     gpt = LLM(api_key=api_key)\r\n-    texts = gpt.createTexts(datasets_directory=datasets_directory)\r\n+    docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     print(len(texts))\r\n \r\n \r\n if __name__ == \"__main__\":\r\n"
+                },
+                {
+                    "date": 1678415836056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,11 +4,16 @@\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n+    query = \"How many calories in an egg?\"\r\n+\r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-    print(len(texts))\r\n+    embedding = gpt.createEmbedding()\r\n+    db = gpt.getDatabase()\r\n+    result = gpt.query_database(query, db)\r\n \r\n+    print(db)\r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678415864695,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n-    db = gpt.getDatabase()\r\n+    db = gpt.getDatabase(docs=docs, embeddings=embedding)\r\n     result = gpt.query_database(query, db)\r\n \r\n     print(db)\r\n \r\n"
+                },
+                {
+                    "date": 1678415882289,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,16 +4,16 @@\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/kaggle_food_nutrition'\r\n-    query = \"How many calories in an egg?\"\r\n+    query = \"How many calories in Eggplant?\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n     db = gpt.getDatabase(docs=docs, embeddings=embedding)\r\n     result = gpt.query_database(query, db)\r\n \r\n-    print(db)\r\n+    print(result)\r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678416788656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n     embedding = gpt.createEmbedding()\r\n     db = gpt.getDatabase(docs=docs, embeddings=embedding)\r\n     result = gpt.query_database(query, db)\r\n \r\n-    print(result)\r\n+    print(result[0].page_content)\r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678419734948,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/kaggle_food_nutrition'\r\n+    datasets_directory = 'data\\amazon_reviews_test_text'\r\n     query = \"How many calories in Eggplant?\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n"
+                },
+                {
+                    "date": 1678419798641,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,10 @@\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data\\amazon_reviews_test_text'\r\n-    query = \"How many calories in Eggplant?\"\r\n+    datasets_directory = 'data/amazon_reviews_test_text'\r\n+    query = \"Affordable taffy?\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n"
+                },
+                {
+                    "date": 1678419867409,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n-    query = \"Affordable taffy?\"\r\n+    query = \"Cheap taffy\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n"
+                },
+                {
+                    "date": 1678419903191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,10 +10,10 @@\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n     db = gpt.getDatabase(docs=docs, embeddings=embedding)\r\n-    result = gpt.query_database(query, db)\r\n+    results = gpt.query_database(query, db)\r\n \r\n-    print(result[0].page_content)\r\n+    print(results)\r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678420649222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n     embedding = gpt.createEmbedding()\r\n     db = gpt.getDatabase(docs=docs, embeddings=embedding)\r\n     results = gpt.query_database(query, db)\r\n \r\n-    print(results)\r\n+    print(results[0].page_content)\r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678420914099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,12 @@\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n-    query = \"Cheap taffy\"\r\n \r\n+\r\n+    query = \"Dog food\"\r\n+\r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n     db = gpt.getDatabase(docs=docs, embeddings=embedding)\r\n"
+                },
+                {
+                    "date": 1678421212499,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,10 @@\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n+    db_directory = 'db/amazon_review_test'\r\n \r\n-\r\n     query = \"Dog food\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n"
+                },
+                {
+                    "date": 1678421492204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n \r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n-    db = gpt.getDatabase(docs=docs, embeddings=embedding)\r\n+    db = gpt.getDatabase(docs=docs, embedding=embedding)\r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n \r\n"
+                },
+                {
+                    "date": 1678421527472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,6 +16,7 @@\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n \r\n+\r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678421823563,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n     query = \"Dog food\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n-    docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n+    docs = gpt.createDocs(datasets_directory=db_directory)\r\n     embedding = gpt.createEmbedding()\r\n     db = gpt.getDatabase(docs=docs, embedding=embedding)\r\n     results = gpt.query_database(query, db)\r\n \r\n"
+                },
+                {
+                    "date": 1678421830159,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,11 +9,11 @@\n \r\n     query = \"Dog food\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n-    docs = gpt.createDocs(datasets_directory=db_directory)\r\n+    docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n-    db = gpt.getDatabase(docs=docs, embedding=embedding)\r\n+    db = gpt.getDatabase(docs=docs, embedding=embedding, db_directory)\r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n \r\n"
+                },
+                {
+                    "date": 1678421845956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n \r\n     gpt = LLM(api_key=api_key)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     embedding = gpt.createEmbedding()\r\n-    db = gpt.getDatabase(docs=docs, embedding=embedding, db_directory)\r\n+    db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n \r\n"
+                },
+                {
+                    "date": 1678422327008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n-    db_directory = 'db/amazon_review_test'\r\n+    db_directory = 'db/amazon_review'\r\n \r\n     query = \"Dog food\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n"
+                },
+                {
+                    "date": 1678422341329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n     db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n+    print(results)\r\n \r\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678422673335,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,10 +9,11 @@\n \r\n     query = \"Dog food\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n+    embedding = gpt.createEmbedding()\r\n+\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-    embedding = gpt.createEmbedding()\r\n     db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n"
+                },
+                {
+                    "date": 1678422724494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,10 @@\n \r\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n+    if os.path.exists(db_directory):\r\n+        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n     docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n     db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n     results = gpt.query_database(query, db)\r\n \r\n"
+                },
+                {
+                    "date": 1678422732060,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,11 @@\n     embedding = gpt.createEmbedding()\r\n \r\n     if os.path.exists(db_directory):\r\n         db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n-    docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-    db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n+    else:\r\n+        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n+        db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n     print(results)\r\n"
+                }
+            ],
+            "date": 1678412092969,
+            "name": "Commit-0",
+            "content": "import sys\r\nfrom gpt import Gpt\r\n\r\n\r\ndef main(user_input):\r\n    api_key = os.environ['OPENAI_API_KEY']\r\n    \r\n    prompt = 'Food:' + user_input + \\\r\n        '. Return the serving calories and nutrition as one JSON in the form of {\"items\": [{\"item_name\": string,\"calories\": number,\"protein\": number,\"carbohydrates\": number, \"fat\": number, \"servings\": number, \"unit\": string}, ...]}'\r\n\r\n    ai = Gpt(api_key=api_key)\r\n\r\n    nutrition = ai.generate_response(prompt=prompt)\r\n\r\n    return nutrition.strip()\r\n\r\n\r\nif __name__ == \"__main__\":\r\n    user_input = sys.argv[1]\r\n    # user_input = \"3 crepes, 6 tbsp of hershey's syrup:\"\r\n    response = main(user_input)\r\n    print(response)\r\n    # sys.stdout.write(response)\r\n"
+        }
+    ]
+}

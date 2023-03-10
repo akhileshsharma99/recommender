@@ -1,0 +1,26 @@
+{
+    "sourceFile": "exceptions.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1678413969683,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1678414190930,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-class PathNotDirectoryException():\r\n+class PathNotDirectoryException(Exception):\r\n     \r\n     def __init__(self, path: str, message=\"The path provided is not a directory:\") -> None:\r\n         self.message = message + path\r\n         super().__init__(self.message)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1678414222036,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n class PathNotDirectoryException(Exception):\r\n     \r\n-    def __init__(self, path: str, message=\"The path provided is not a directory:\") -> None:\r\n+    def __init__(self, path: str, message=\"The path provided is not a directory: \") -> None:\r\n         self.message = message + path\r\n         super().__init__(self.message)\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1678413969683,
+            "name": "Commit-0",
+            "content": "class PathNotDirectoryException():\r\n    \r\n    def __init__(self, path: str, message=\"The path provided is not a directory:\") -> None:\r\n        self.message = message + path\r\n        super().__init__(self.message)"
+        }
+    ]
+}
