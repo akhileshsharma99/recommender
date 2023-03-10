@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 59,
+            "activePatchIndex": 64,
             "patches": [
                 {
                     "date": 1678414140726,
@@ -244,6 +244,26 @@
                 {
                     "date": 1678422664369,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     def query_database(self, query: str, db: VectorStore, k: int = 4):\r\n         return db.similarity_search(query, k=k)\r\n \r\n     def getDatabase(self, embedding: OpenAIEmbeddings, db_dir: str):\r\n-            db = DeepLake(dataset_path=db_dir, embedding_function=embedding)\r\n+        db = DeepLake(dataset_path=db_dir, embedding_function=embedding)\r\n         return db\r\n     \r\n     def createDatabase(self, docs: list, embedding: OpenAIEmbeddings, db_dir: str):\r\n         db = DeepLake.from_documents(\r\n"
+                },
+                {
+                    "date": 1678424316465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n \r\n     def __init__(self, api_key: str) -> None:\r\n         self._api_key = api_key\r\n \r\n-    def query_database(self, query: str, db: VectorStore, k: int = 4):\r\n+    def query_database(self, query: str, db, k: int = 4):\r\n         return db.similarity_search(query, k=k)\r\n \r\n     def getDatabase(self, embedding: OpenAIEmbeddings, db_dir: str):\r\n         db = DeepLake(dataset_path=db_dir, embedding_function=embedding)\r\n"
+                },
+                {
+                    "date": 1678424330762,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n \r\n     def __init__(self, api_key: str) -> None:\r\n         self._api_key = api_key\r\n \r\n-    def query_database(self, query: str, db, k: int = 4):\r\n+    def query_database(self, query: str, db: VectorStore | DataLake, k: int = 4):\r\n         return db.similarity_search(query, k=k)\r\n \r\n     def getDatabase(self, embedding: OpenAIEmbeddings, db_dir: str):\r\n         db = DeepLake(dataset_path=db_dir, embedding_function=embedding)\r\n"
+                },
+                {
+                    "date": 1678424339842,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n \r\n     def __init__(self, api_key: str) -> None:\r\n         self._api_key = api_key\r\n \r\n-    def query_database(self, query: str, db: VectorStore | DataLake, k: int = 4):\r\n+    def query_database(self, query: str, db: VectorStore | DeepLake, k: int = 4):\r\n         return db.similarity_search(query, k=k)\r\n \r\n     def getDatabase(self, embedding: OpenAIEmbeddings, db_dir: str):\r\n         db = DeepLake(dataset_path=db_dir, embedding_function=embedding)\r\n"
+                },
+                {
+                    "date": 1678425398276,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,34 +49,5 @@\n                 text_splitter = CharacterTextSplitter(\r\n                     chunk_size=1000, chunk_overlap=0)\r\n                 docs.extend(text_splitter.split_documents(documents))\r\n             return docs\r\n-        raise PathNotDirectoryException(path=datasets_directory)\r\n-\r\n-\r\n-# datasets_directory = 'nutrition/datasets/kaggle_food_nutrition'\r\n-# persist_directory = 'nutrition/db/kaggle_food_nutrition'\r\n-\r\n-\r\n-# # If the vector database has already been created, load it from disk\r\n-# if os.path.exists(persist_directory):\r\n-#     vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)\r\n-# else:\r\n-#     # If the vector database hasn't been created, load the dataset from disk\r\n-#     loader = DirectoryLoader(datasets_directory, glob='**/*.txt')\r\n-#     documents = loader.load()\r\n-\r\n-#     # Split the text into smaller chunks for better performance\r\n-#     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)\r\n-#     texts = text_splitter.split_documents(documents)\r\n-\r\n-#     # Create the vector database from the documents\r\n-#     vectordb = Chroma.from_documents(documents=texts, embedding=embeddings, persist_directory=persist_directory)\r\n-\r\n-# # Create a VectorDBQA instance for answering questions\r\n-# qa = VectorDBQA.from_chain_type(llm=OpenAI(), chain_type=\"stuff\", vectorstore=vectordb , return_source_documents=True)\r\n-\r\n-# # Ask a question and print the result and source documents\r\n-# query = \"200g of lean beef how many calories\"\r\n-# result = qa({\"query\": query})\r\n-# print(result['result'])\r\n-# print(result['source_documents'])\r\n+        raise PathNotDirectoryException(path=datasets_directory)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1678484054961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \r\n from exceptions import PathNotDirectoryException\r\n \r\n \r\n-class LLM:\r\n+class Recommender:\r\n \r\n     def __init__(self, api_key: str) -> None:\r\n         self._api_key = api_key\r\n \r\n"
                 }
             ],
             "date": 1678414140726,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 35,
+            "activePatchIndex": 63,
             "patches": [
                 {
                     "date": 1678412092969,
@@ -148,6 +148,118 @@
                 {
                     "date": 1678422732060,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,11 @@\n     embedding = gpt.createEmbedding()\r\n \r\n     if os.path.exists(db_directory):\r\n         db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n-    docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-    db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n+    else:\r\n+        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n+        db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n     print(results)\r\n"
+                },
+                {
+                    "date": 1678423316126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n     db_directory = 'db/amazon_review'\r\n \r\n-    query = \"Dog food\"\r\n+    query = \"Cheap beans\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n@@ -16,8 +16,9 @@\n         db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n     else:\r\n         docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n         db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n+        \r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n     print(results)\r\n"
+                },
+                {
+                    "date": 1678423351051,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/amazon_reviews_test_text'\r\n+    datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_review'\r\n \r\n     query = \"Cheap beans\"\r\n \r\n"
+                },
+                {
+                    "date": 1678423771936,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n-    db_directory = 'db/amazon_review'\r\n+    db_directory = 'db/amazon_reviews'\r\n \r\n     query = \"Cheap beans\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n"
+                },
+                {
+                    "date": 1678423784158,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     if os.path.exists(db_directory):\r\n         db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n     else:\r\n         docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-        db = gpt.getDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n+        db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n         \r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n"
+                },
+                {
+                    "date": 1678424262119,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,12 @@\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n     if os.path.exists(db_directory):\r\n+        print('database exists...')\r\n         db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n     else:\r\n+        print('database does not exists...')\r\n         docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n         db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n         \r\n     results = gpt.query_database(query, db)\r\n"
+                },
+                {
+                    "date": 1678424675181,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,10 @@\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/amazon_reviews_text'\r\n-    db_directory = 'db/amazon_reviews'\r\n+    datasets_directory = 'data/amazon_reviews_text_test'\r\n+    db_directory = 'db/amazon_reviews_test'\r\n \r\n     query = \"Cheap beans\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n"
+                },
+                {
+                    "date": 1678424700839,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/amazon_reviews_text_test'\r\n+    datasets_directory = 'data/amazon_reviews_test_text'\r\n     db_directory = 'db/amazon_reviews_test'\r\n \r\n     query = \"Cheap beans\"\r\n \r\n"
+                },
+                {
+                    "date": 1678424891858,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,7 +24,28 @@\n \r\n     print(results[0].page_content)\r\n     print(results)\r\n \r\n+def appendTexts():\r\n+    api_key = os.environ['OPENAI_API_KEY']\r\n+    datasets_directory = 'data/amazon_reviews_test_text'\r\n+    db_directory = 'db/amazon_reviews_test'\r\n \r\n+    query = \"Cheap beans\"\r\n+\r\n+    gpt = LLM(api_key=api_key)\r\n+    embedding = gpt.createEmbedding()\r\n+\r\n+    if os.path.exists(db_directory):\r\n+        print('database exists...')\r\n+        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n+    else:\r\n+        print('database does not exists...')\r\n+        return\r\n+        \r\n+    results = gpt.query_database(query, db)\r\n+\r\n+    print(results[0].page_content)\r\n+    print(results)\r\n+\r\n if __name__ == \"__main__\":\r\n     main()\r\n"
+                },
+                {
+                    "date": 1678424930651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,11 @@\n     embedding = gpt.createEmbedding()\r\n \r\n     if os.path.exists(db_directory):\r\n         print('database exists...')\r\n+        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n         db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n+        db.add_documents()\r\n     else:\r\n         print('database does not exists...')\r\n         return\r\n         \r\n"
+                },
+                {
+                    "date": 1678424936989,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n     if os.path.exists(db_directory):\r\n         print('database exists...')\r\n         docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n         db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n-        db.add_documents()\r\n+        db.add_documents(documents=docs)\r\n     else:\r\n         print('database does not exists...')\r\n         return\r\n         \r\n"
+                },
+                {
+                    "date": 1678424956797,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,5 +49,6 @@\n     print(results[0].page_content)\r\n     print(results)\r\n \r\n if __name__ == \"__main__\":\r\n-    main()\r\n+    # main()\r\n+    appendTexts()\r\n"
+                },
+                {
+                    "date": 1678424968754,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n \r\n     print(results[0].page_content)\r\n     print(results)\r\n \r\n-def appendTexts():\r\n+def add_documents():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n     db_directory = 'db/amazon_reviews_test'\r\n \r\n@@ -50,5 +50,5 @@\n     print(results)\r\n \r\n if __name__ == \"__main__\":\r\n     # main()\r\n-    appendTexts()\r\n+    add_documents()\r\n"
+                },
+                {
+                    "date": 1678424994864,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,6 +49,6 @@\n     print(results[0].page_content)\r\n     print(results)\r\n \r\n if __name__ == \"__main__\":\r\n-    # main()\r\n-    add_documents()\r\n+    main()\r\n+    # add_documents()\r\n"
+                },
+                {
+                    "date": 1678425416824,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n     if os.path.exists(db_directory):\r\n         print('database exists...')\r\n         docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n         db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n-        db.add_documents(documents=docs)\r\n+        db.add_texts(texts=docs)\r\n     else:\r\n         print('database does not exists...')\r\n         return\r\n         \r\n@@ -49,6 +49,6 @@\n     print(results[0].page_content)\r\n     print(results)\r\n \r\n if __name__ == \"__main__\":\r\n-    main()\r\n-    # add_documents()\r\n+    # main()\r\n+    add_documents()\r\n"
+                },
+                {
+                    "date": 1678427692626,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,10 @@\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/amazon_reviews_test_text'\r\n-    db_directory = 'db/amazon_reviews_test'\r\n+    datasets_directory = 'data/amazon_reviews_text'\r\n+    db_directory = 'db/amazon_reviews'\r\n \r\n     query = \"Cheap beans\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n"
+                },
+                {
+                    "date": 1678427725442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,6 +49,6 @@\n     print(results[0].page_content)\r\n     print(results)\r\n \r\n if __name__ == \"__main__\":\r\n-    # main()\r\n-    add_documents()\r\n+    main()\r\n+    # add_documents()\r\n"
+                },
+                {
+                    "date": 1678428827664,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,54 @@\n+import os\r\n+from llm import LLM\r\n+\r\n+\r\n+def main():\r\n+    api_key = os.environ['OPENAI_API_KEY']\r\n+    datasets_directory = 'data/amazon_reviews_text'\r\n+    db_directory = 'db/amazon_reviews'\r\n+\r\n+    query = \"Cheap beans\"\r\n+\r\n+    gpt = LLM(api_key=api_key)\r\n+    embedding = gpt.createEmbedding()\r\n+\r\n+    if os.path.exists(db_directory):\r\n+        print('database exists...')\r\n+        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n+    else:\r\n+        print('database does not exists...')\r\n+        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n+        db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n+        \r\n+    results = gpt.query_database(query, db)\r\n+\r\n+    print(results[0].page_content)\r\n+    print(results)\r\n+\r\n+def add_documents():\r\n+    api_key = os.environ['OPENAI_API_KEY']\r\n+    datasets_directory = 'data/amazon_reviews_test_text'\r\n+    db_directory = 'db/amazon_reviews_test'\r\n+\r\n+    query = \"HP laptop with good specs for programming\"\r\n+\r\n+    gpt = LLM(api_key=api_key)\r\n+    embedding = gpt.createEmbedding()\r\n+\r\n+    if os.path.exists(db_directory):\r\n+        print('database exists...')\r\n+        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n+        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n+        db.add_texts(texts=docs)\r\n+    else:\r\n+        print('database does not exists...')\r\n+        return\r\n+        \r\n+    results = gpt.query_database(query, db)\r\n+\r\n+    print(results[0].page_content)\r\n+    print(results)\r\n+\r\n+if __name__ == \"__main__\":\r\n+    main()\r\n+    # add_documents()\r\n"
+                },
+                {
+                    "date": 1678431186340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"Cheap beans\"\r\n+    query = \"HP laptop with good specs for programming\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n@@ -51,58 +51,4 @@\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n     # add_documents()\r\n-import os\r\n-from llm import LLM\r\n-\r\n-\r\n-def main():\r\n-    api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/amazon_reviews_text'\r\n-    db_directory = 'db/amazon_reviews'\r\n-\r\n-    query = \"Cheap beans\"\r\n-\r\n-    gpt = LLM(api_key=api_key)\r\n-    embedding = gpt.createEmbedding()\r\n-\r\n-    if os.path.exists(db_directory):\r\n-        print('database exists...')\r\n-        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n-    else:\r\n-        print('database does not exists...')\r\n-        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-        db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n-        \r\n-    results = gpt.query_database(query, db)\r\n-\r\n-    print(results[0].page_content)\r\n-    print(results)\r\n-\r\n-def add_documents():\r\n-    api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/amazon_reviews_test_text'\r\n-    db_directory = 'db/amazon_reviews_test'\r\n-\r\n-    query = \"Cheap beans\"\r\n-\r\n-    gpt = LLM(api_key=api_key)\r\n-    embedding = gpt.createEmbedding()\r\n-\r\n-    if os.path.exists(db_directory):\r\n-        print('database exists...')\r\n-        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n-        db.add_texts(texts=docs)\r\n-    else:\r\n-        print('database does not exists...')\r\n-        return\r\n-        \r\n-    results = gpt.query_database(query, db)\r\n-\r\n-    print(results[0].page_content)\r\n-    print(results)\r\n-\r\n-if __name__ == \"__main__\":\r\n-    main()\r\n-    # add_documents()\r\n"
+                },
+                {
+                    "date": 1678431274986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"HP laptop with good specs for programming\"\r\n+    query = \"Expensive beans\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n"
+                },
+                {
+                    "date": 1678435375244,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"Expensive beans\"\r\n+    query = \"Earthy coffee beans\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n"
+                },
+                {
+                    "date": 1678435400627,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,8 +22,9 @@\n         \r\n     results = gpt.query_database(query, db)\r\n \r\n     print(results[0].page_content)\r\n+    print()\r\n     print(results)\r\n \r\n def add_documents():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n"
+                },
+                {
+                    "date": 1678435434235,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,11 +21,10 @@\n         db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n         \r\n     results = gpt.query_database(query, db)\r\n \r\n-    print(results[0].page_content)\r\n-    print()\r\n-    print(results)\r\n+    for result in results:\r\n+        print(result)\r\n \r\n def add_documents():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n"
+                },
+                {
+                    "date": 1678435440908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,8 +23,9 @@\n     results = gpt.query_database(query, db)\r\n \r\n     for result in results:\r\n         print(result)\r\n+        print()\r\n \r\n def add_documents():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n"
+                },
+                {
+                    "date": 1678467015109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"Earthy coffee beans\"\r\n+    query = \"Beast cheap pizza\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n"
+                },
+                {
+                    "date": 1678467034281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"Beast cheap pizza\"\r\n+    query = \"Best cheap pizza\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n@@ -22,9 +22,9 @@\n         \r\n     results = gpt.query_database(query, db)\r\n \r\n     for result in results:\r\n-        print(result)\r\n+        print(result.page_content)\r\n         print()\r\n \r\n def add_documents():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n"
+                },
+                {
+                    "date": 1678467093658,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"Best cheap pizza\"\r\n+    query = \"pizza not whole wheat\"\r\n \r\n     gpt = LLM(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n"
+                },
+                {
+                    "date": 1678484054951,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import os\r\n-from llm import LLM\r\n+from llm import Recommender\r\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n@@ -8,9 +8,9 @@\n     db_directory = 'db/amazon_reviews'\r\n \r\n     query = \"pizza not whole wheat\"\r\n \r\n-    gpt = LLM(api_key=api_key)\r\n+    gpt = Recommender(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n     if os.path.exists(db_directory):\r\n         print('database exists...')\r\n@@ -32,9 +32,9 @@\n     db_directory = 'db/amazon_reviews_test'\r\n \r\n     query = \"HP laptop with good specs for programming\"\r\n \r\n-    gpt = LLM(api_key=api_key)\r\n+    gpt = Recommender(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n     if os.path.exists(db_directory):\r\n         print('database exists...')\r\n"
+                },
+                {
+                    "date": 1678484077348,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import os\r\n-from llm import Recommender\r\n+from recommender import Recommender\r\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n"
                 }
             ],
             "date": 1678412092969,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 37,
+            "activePatchIndex": 42,
             "patches": [
                 {
                     "date": 1678418251739,
@@ -156,6 +156,26 @@
                 {
                     "date": 1678422820953,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n                     row.insert(0, headers)\r\n                     line_count += 1\r\n \r\n                     with open(output_path, \"w\") as my_output_file:\r\n-                        my_output_file.write(\" \".join(row)+'\\n')\r\n+                        my_output_file.write(\", \".join(row)+'\\n')\r\n                         my_output_file.close()\r\n \r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678428599656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,20 +11,20 @@\n             prm_key_index = 0\r\n             for row in reader:\r\n                 if line_count == 0:\r\n                     prm_key_index = row.index(prm_key_field)\r\n-                    headers = \", \".join(row) + \" \"\r\n+                    headers = \", \".join(row) +'\\n'\r\n                     print(headers)\r\n                     line_count += 1\r\n                 else:\r\n                     prm_key = row[prm_key_index]\r\n                     output_path = f\"{txt_dir}/{prm_key}.txt\"\r\n-\r\n+                    row = \", \".join(row)+'\\n'\r\n                     row.insert(0, headers)\r\n                     line_count += 1\r\n \r\n                     with open(output_path, \"w\") as my_output_file:\r\n-                        my_output_file.write(\", \".join(row)+'\\n')\r\n+                        my_output_file.write()\r\n                         my_output_file.close()\r\n \r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678428632007,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,14 +17,13 @@\n                     line_count += 1\r\n                 else:\r\n                     prm_key = row[prm_key_index]\r\n                     output_path = f\"{txt_dir}/{prm_key}.txt\"\r\n-                    row = \", \".join(row)+'\\n'\r\n-                    row.insert(0, headers)\r\n+                    row_str = \", \".join(row)+'\\n'\r\n                     line_count += 1\r\n \r\n                     with open(output_path, \"w\") as my_output_file:\r\n-                        my_output_file.write()\r\n+                        my_output_file.write(headers + '\\n' + row_str)\r\n                         my_output_file.close()\r\n \r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678428650017,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import csv\r\n \r\n-csv_file = \"data/amazon_reviews/Reviews.csv\"\r\n-txt_dir = \"data/amazon_reviews_text\"\r\n+csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n+txt_dir = \"data/amazon_reviews_test_text\"\r\n primary_key_field = 'Id'\r\n \r\n def csv2text(csv_file: str, txt_dir: str, prm_key_field: str):\r\n     with open(csv_file, \"r\") as my_input_file:\r\n"
+                },
+                {
+                    "date": 1678428685325,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n                     row_str = \", \".join(row)+'\\n'\r\n                     line_count += 1\r\n \r\n                     with open(output_path, \"w\") as my_output_file:\r\n-                        my_output_file.write(headers + '\\n' + row_str)\r\n+                        my_output_file.write(headers + row_str)\r\n                         my_output_file.close()\r\n \r\n     print(f'Processed {line_count} lines.')\r\n \r\n"
+                },
+                {
+                    "date": 1678428736753,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import csv\r\n \r\n-csv_file = \"data/amazon_reviews_test/Reviews.csv\"\r\n-txt_dir = \"data/amazon_reviews_test_text\"\r\n+csv_file = \"data/amazon_reviews/Reviews.csv\"\r\n+txt_dir = \"data/amazon_reviews_text\"\r\n primary_key_field = 'Id'\r\n \r\n def csv2text(csv_file: str, txt_dir: str, prm_key_field: str):\r\n     with open(csv_file, \"r\") as my_input_file:\r\n"
                 }
             ],
             "date": 1678418251739,
