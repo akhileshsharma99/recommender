@@ -1,0 +1,26 @@
+{
+    "sourceFile": "models/csv_loader.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1678581627567,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1678581646830,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,7 @@\n from loader import Loader\r\n \r\n \r\n-class CSVLoader(Loader):\n\\ No newline at end of file\n+class CSVLoader(Loader):\r\n+\r\n+    def __init__(self, input_dir: str) -> None:\r\n+        self._input_dir = input_dir\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1678581707150,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,5 +3,28 @@\n \r\n class CSVLoader(Loader):\r\n \r\n     def __init__(self, input_dir: str) -> None:\r\n-        self._input_dir = input_dir\n\\ No newline at end of file\n+        self._input_dir = input_dir\r\n+\r\n+    def csv2text(self, csv_file: str, txt_dir: str, prm_key_field: str):\r\n+        with open(csv_file, \"r\") as my_input_file:\r\n+                line_count = 0\r\n+                reader = csv.reader(my_input_file)\r\n+                prm_key_index = 0\r\n+                for row in reader:\r\n+                    if line_count == 0:\r\n+                        prm_key_index = row.index(prm_key_field)\r\n+                        headers = \", \".join(row) +'\\n'\r\n+                        print(headers)\r\n+                        line_count += 1\r\n+                    else:\r\n+                        prm_key = row[prm_key_index]\r\n+                        output_path = f\"{txt_dir}/{prm_key}.txt\"\r\n+                        row_str = \", \".join(row)+'\\n'\r\n+                        line_count += 1\r\n+\r\n+                        with open(output_path, \"w\") as my_output_file:\r\n+                            my_output_file.write(headers + row_str)\r\n+                            my_output_file.close()\r\n+\r\n+        print(f'Processed {line_count} lines.')\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1678581627567,
+            "name": "Commit-0",
+            "content": "from loader import Loader\r\n\r\n\r\nclass CSVLoader(Loader):"
+        }
+    ]
+}

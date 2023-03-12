@@ -1,0 +1,58 @@
+{
+    "sourceFile": "models/loader.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 10,
+            "patches": [
+                {
+                    "date": 1678581003884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1678581114965,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,30 @@\n+import os\r\n+from langchain.document_loaders import UnstructuredFileLoader\r\n+from langchain.text_splitter import CharacterTextSplitter\r\n \r\n+from exceptions import PathNotDirectoryException\r\n+\r\n class Loader:\r\n-    def __init__(self, api_key: str) -> None:\r\n-        self._api_key = api_key\r\n+    def __init__(self, file_dir: str) -> None:\r\n+        self._file_dir = file_dir\r\n+    \r\n+    @staticmethod\r\n+    def createDocs(datasets_directory: str):\r\n+        def getFilesInDirectory(directory_path: str) -> list[str]:\r\n+            return [os.path.join(directory_path, filename) for filename in os.listdir(directory_path)]\r\n+\r\n+        if os.path.isdir(datasets_directory):\r\n+\r\n+            docs = []\r\n+            file_paths = getFilesInDirectory(datasets_directory)\r\n+\r\n+            for file_path in file_paths:\r\n+                loader = UnstructuredFileLoader(file_path, mode=\"elements\")\r\n+                documents = loader.load()\r\n+\r\n+                # Split the text into smaller chunks for better performance\r\n+                text_splitter = CharacterTextSplitter(\r\n+                    chunk_size=1000, chunk_overlap=0)\r\n+                docs.extend(text_splitter.split_documents(documents))\r\n+            return docs\r\n+        raise PathNotDirectoryException(path=datasets_directory)\r\n"
+                },
+                {
+                    "date": 1678581169440,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,11 +6,10 @@\n \r\n class Loader:\r\n     def __init__(self, file_dir: str) -> None:\r\n         self._file_dir = file_dir\r\n-    \r\n-    @staticmethod\r\n-    def createDocs(datasets_directory: str):\r\n+\r\n+    def createDocs(self):\r\n         def getFilesInDirectory(directory_path: str) -> list[str]:\r\n             return [os.path.join(directory_path, filename) for filename in os.listdir(directory_path)]\r\n \r\n         if os.path.isdir(datasets_directory):\r\n"
+                },
+                {
+                    "date": 1678581186936,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,16 +4,16 @@\n \r\n from exceptions import PathNotDirectoryException\r\n \r\n class Loader:\r\n-    def __init__(self, file_dir: str) -> None:\r\n-        self._file_dir = file_dir\r\n+    def __init__(self, files_dir: str) -> None:\r\n+        self._file_dir = files_dir\r\n \r\n     def createDocs(self):\r\n         def getFilesInDirectory(directory_path: str) -> list[str]:\r\n             return [os.path.join(directory_path, filename) for filename in os.listdir(directory_path)]\r\n \r\n-        if os.path.isdir(datasets_directory):\r\n+        if os.path.isdir(self._file_dir):\r\n \r\n             docs = []\r\n             file_paths = getFilesInDirectory(datasets_directory)\r\n \r\n"
+                },
+                {
+                    "date": 1678581198817,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \r\n         if os.path.isdir(self._file_dir):\r\n \r\n             docs = []\r\n-            file_paths = getFilesInDirectory(datasets_directory)\r\n+            file_paths = getFilesInDirectory(self._file_dir)\r\n \r\n             for file_path in file_paths:\r\n                 loader = UnstructuredFileLoader(file_path, mode=\"elements\")\r\n                 documents = loader.load()\r\n"
+                },
+                {
+                    "date": 1678581254861,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,19 +4,22 @@\n \r\n from exceptions import PathNotDirectoryException\r\n \r\n class Loader:\r\n-    def __init__(self, files_dir: str) -> None:\r\n-        self._file_dir = files_dir\r\n+    def __init__(self, input_dir: str, output_dir: str) -> None:\r\n+        self._input_dir = input_dir\r\n+        self._output_dir = output_dir\r\n \r\n     def createDocs(self):\r\n         def getFilesInDirectory(directory_path: str) -> list[str]:\r\n             return [os.path.join(directory_path, filename) for filename in os.listdir(directory_path)]\r\n+        \r\n+        def \r\n \r\n-        if os.path.isdir(self._file_dir):\r\n+        if os.path.isdir(self._input_dir):\r\n \r\n             docs = []\r\n-            file_paths = getFilesInDirectory(self._file_dir)\r\n+            file_paths = getFilesInDirectory(self._input_dir)\r\n \r\n             for file_path in file_paths:\r\n                 loader = UnstructuredFileLoader(file_path, mode=\"elements\")\r\n                 documents = loader.load()\r\n"
+                },
+                {
+                    "date": 1678581280196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,10 +11,8 @@\n \r\n     def createDocs(self):\r\n         def getFilesInDirectory(directory_path: str) -> list[str]:\r\n             return [os.path.join(directory_path, filename) for filename in os.listdir(directory_path)]\r\n-        \r\n-        def \r\n \r\n         if os.path.isdir(self._input_dir):\r\n \r\n             docs = []\r\n"
+                },
+                {
+                    "date": 1678581400871,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,11 +4,10 @@\n \r\n from exceptions import PathNotDirectoryException\r\n \r\n class Loader:\r\n-    def __init__(self, input_dir: str, output_dir: str) -> None:\r\n+    def __init__(self, input_dir: str) -> None:\r\n         self._input_dir = input_dir\r\n-        self._output_dir = output_dir\r\n \r\n     def createDocs(self):\r\n         def getFilesInDirectory(directory_path: str) -> list[str]:\r\n             return [os.path.join(directory_path, filename) for filename in os.listdir(directory_path)]\r\n"
+                },
+                {
+                    "date": 1678581456826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,16 +3,40 @@\n from langchain.text_splitter import CharacterTextSplitter\r\n \r\n from exceptions import PathNotDirectoryException\r\n \r\n+\r\n class Loader:\r\n     def __init__(self, input_dir: str) -> None:\r\n         self._input_dir = input_dir\r\n \r\n     def createDocs(self):\r\n         def getFilesInDirectory(directory_path: str) -> list[str]:\r\n             return [os.path.join(directory_path, filename) for filename in os.listdir(directory_path)]\r\n+        \r\n+        def csv2text(csv_file: str, txt_dir: str, prm_key_field: str):\r\n+            with open(csv_file, \"r\") as my_input_file:\r\n+                    line_count = 0\r\n+                    reader = csv.reader(my_input_file)\r\n+                    prm_key_index = 0\r\n+                    for row in reader:\r\n+                        if line_count == 0:\r\n+                            prm_key_index = row.index(prm_key_field)\r\n+                            headers = \", \".join(row) +'\\n'\r\n+                            print(headers)\r\n+                            line_count += 1\r\n+                        else:\r\n+                            prm_key = row[prm_key_index]\r\n+                            output_path = f\"{txt_dir}/{prm_key}.txt\"\r\n+                            row_str = \", \".join(row)+'\\n'\r\n+                            line_count += 1\r\n \r\n+                            with open(output_path, \"w\") as my_output_file:\r\n+                                my_output_file.write(headers + row_str)\r\n+                                my_output_file.close()\r\n+\r\n+            print(f'Processed {line_count} lines.')\r\n+\r\n         if os.path.isdir(self._input_dir):\r\n \r\n             docs = []\r\n             file_paths = getFilesInDirectory(self._input_dir)\r\n"
+                },
+                {
+                    "date": 1678581568158,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,39 +4,16 @@\n \r\n from exceptions import PathNotDirectoryException\r\n \r\n \r\n-class Loader:\r\n+class Docs:\r\n     def __init__(self, input_dir: str) -> None:\r\n         self._input_dir = input_dir\r\n \r\n     def createDocs(self):\r\n         def getFilesInDirectory(directory_path: str) -> list[str]:\r\n             return [os.path.join(directory_path, filename) for filename in os.listdir(directory_path)]\r\n-        \r\n-        def csv2text(csv_file: str, txt_dir: str, prm_key_field: str):\r\n-            with open(csv_file, \"r\") as my_input_file:\r\n-                    line_count = 0\r\n-                    reader = csv.reader(my_input_file)\r\n-                    prm_key_index = 0\r\n-                    for row in reader:\r\n-                        if line_count == 0:\r\n-                            prm_key_index = row.index(prm_key_field)\r\n-                            headers = \", \".join(row) +'\\n'\r\n-                            print(headers)\r\n-                            line_count += 1\r\n-                        else:\r\n-                            prm_key = row[prm_key_index]\r\n-                            output_path = f\"{txt_dir}/{prm_key}.txt\"\r\n-                            row_str = \", \".join(row)+'\\n'\r\n-                            line_count += 1\r\n \r\n-                            with open(output_path, \"w\") as my_output_file:\r\n-                                my_output_file.write(headers + row_str)\r\n-                                my_output_file.close()\r\n-\r\n-            print(f'Processed {line_count} lines.')\r\n-\r\n         if os.path.isdir(self._input_dir):\r\n \r\n             docs = []\r\n             file_paths = getFilesInDirectory(self._input_dir)\r\n@@ -49,5 +26,5 @@\n                 text_splitter = CharacterTextSplitter(\r\n                     chunk_size=1000, chunk_overlap=0)\r\n                 docs.extend(text_splitter.split_documents(documents))\r\n             return docs\r\n-        raise PathNotDirectoryException(path=datasets_directory)\r\n+        raise PathNotDirectoryException(path=self._input_dir)\r\n"
+                },
+                {
+                    "date": 1678581582326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \r\n from exceptions import PathNotDirectoryException\r\n \r\n \r\n-class Docs:\r\n+class Loader:\r\n     def __init__(self, input_dir: str) -> None:\r\n         self._input_dir = input_dir\r\n \r\n     def createDocs(self):\r\n"
+                }
+            ],
+            "date": 1678581003884,
+            "name": "Commit-0",
+            "content": "\r\nclass Loader:\r\n    def __init__(self, api_key: str) -> None:\r\n        self._api_key = api_key\r\n"
+        }
+    ]
+}
