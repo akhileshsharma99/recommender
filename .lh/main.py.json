@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 63,
+            "activePatchIndex": 70,
             "patches": [
                 {
                     "date": 1678412092969,
@@ -260,6 +260,34 @@
                 {
                     "date": 1678484077348,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import os\r\n-from llm import Recommender\r\n+from recommender import Recommender\r\n \r\n \r\n def main():\r\n     api_key = os.environ['OPENAI_API_KEY']\r\n"
+                },
+                {
+                    "date": 1678490634442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,10 +30,8 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_test_text'\r\n     db_directory = 'db/amazon_reviews_test'\r\n \r\n-    query = \"HP laptop with good specs for programming\"\r\n-\r\n     gpt = Recommender(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n     if os.path.exists(db_directory):\r\n@@ -43,13 +41,8 @@\n         db.add_texts(texts=docs)\r\n     else:\r\n         print('database does not exists...')\r\n         return\r\n-        \r\n-    results = gpt.query_database(query, db)\r\n \r\n-    print(results[0].page_content)\r\n-    print(results)\r\n-\r\n if __name__ == \"__main__\":\r\n     main()\r\n     # add_documents()\r\n"
+                },
+                {
+                    "date": 1678491224072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         print('database does not exists...')\r\n         docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n         db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n         \r\n-    results = gpt.query_database(query, db)\r\n+    results = gpt.query_database(query, db, 100)\r\n \r\n     for result in results:\r\n         print(result.page_content)\r\n         print()\r\n"
+                },
+                {
+                    "date": 1678491440149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         print('database does not exists...')\r\n         docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n         db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n         \r\n-    results = gpt.query_database(query, db, 100)\r\n+    results = gpt.query_database(query, db, 4)\r\n \r\n     for result in results:\r\n         print(result.page_content)\r\n         print()\r\n"
+                },
+                {
+                    "date": 1678503527097,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,48 @@\n+import os\r\n+from recommender import Recommender\r\n+\r\n+\r\n+def main():\r\n+    api_key = os.environ['OPENAI_API_KEY']\r\n+    datasets_directory = 'data/amazon_reviews_text'\r\n+    db_directory = 'db/amazon_reviews'\r\n+\r\n+    query = \"what should I order at buffalo wild wings\"\r\n+\r\n+    gpt = Recommender(api_key=api_key)\r\n+    embedding = gpt.createEmbedding()\r\n+\r\n+    if os.path.exists(db_directory):\r\n+        print('database exists...')\r\n+        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n+    else:\r\n+        print('database does not exists...')\r\n+        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n+        db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n+        \r\n+    results = gpt.query_database(query, db, 4)\r\n+\r\n+    for result in results:\r\n+        print(result.page_content)\r\n+        print()\r\n+\r\n+def add_documents():\r\n+    api_key = os.environ['OPENAI_API_KEY']\r\n+    datasets_directory = 'data/amazon_reviews_test_text'\r\n+    db_directory = 'db/amazon_reviews_test'\r\n+\r\n+    gpt = Recommender(api_key=api_key)\r\n+    embedding = gpt.createEmbedding()\r\n+\r\n+    if os.path.exists(db_directory):\r\n+        print('database exists...')\r\n+        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n+        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n+        db.add_texts(texts=docs)\r\n+    else:\r\n+        print('database does not exists...')\r\n+        return\r\n+\r\n+if __name__ == \"__main__\":\r\n+    main()\r\n+    # add_documents()\r\n"
+                },
+                {
+                    "date": 1678519248890,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"what should I order at buffalo wild wings\"\r\n+    query = \"What summer shirts are the best\"\r\n \r\n     gpt = Recommender(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n@@ -45,52 +45,4 @@\n \r\n if __name__ == \"__main__\":\r\n     main()\r\n     # add_documents()\r\n-import os\r\n-from recommender import Recommender\r\n-\r\n-\r\n-def main():\r\n-    api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/amazon_reviews_text'\r\n-    db_directory = 'db/amazon_reviews'\r\n-\r\n-    query = \"pizza not whole wheat\"\r\n-\r\n-    gpt = Recommender(api_key=api_key)\r\n-    embedding = gpt.createEmbedding()\r\n-\r\n-    if os.path.exists(db_directory):\r\n-        print('database exists...')\r\n-        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n-    else:\r\n-        print('database does not exists...')\r\n-        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-        db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)\r\n-        \r\n-    results = gpt.query_database(query, db, 4)\r\n-\r\n-    for result in results:\r\n-        print(result.page_content)\r\n-        print()\r\n-\r\n-def add_documents():\r\n-    api_key = os.environ['OPENAI_API_KEY']\r\n-    datasets_directory = 'data/amazon_reviews_test_text'\r\n-    db_directory = 'db/amazon_reviews_test'\r\n-\r\n-    gpt = Recommender(api_key=api_key)\r\n-    embedding = gpt.createEmbedding()\r\n-\r\n-    if os.path.exists(db_directory):\r\n-        print('database exists...')\r\n-        docs = gpt.createDocs(datasets_directory=datasets_directory)\r\n-        db = gpt.getDatabase(embedding=embedding, db_dir=db_directory)\r\n-        db.add_texts(texts=docs)\r\n-    else:\r\n-        print('database does not exists...')\r\n-        return\r\n-\r\n-if __name__ == \"__main__\":\r\n-    main()\r\n-    # add_documents()\r\n"
+                },
+                {
+                    "date": 1678520988920,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"What summer shirts are the best\"\r\n+    query = \"What toasters are recommended\"\r\n \r\n     gpt = Recommender(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n"
+                },
+                {
+                    "date": 1678521382984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     api_key = os.environ['OPENAI_API_KEY']\r\n     datasets_directory = 'data/amazon_reviews_text'\r\n     db_directory = 'db/amazon_reviews'\r\n \r\n-    query = \"What toasters are recommended\"\r\n+    query = \"What are most efficient coffee grinders\"\r\n \r\n     gpt = Recommender(api_key=api_key)\r\n     embedding = gpt.createEmbedding()\r\n \r\n"
                 }
             ],
             "date": 1678412092969,

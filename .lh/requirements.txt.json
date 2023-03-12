@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1678412159180,
@@ -28,6 +28,14 @@
                 {
                     "date": 1678415920619,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,5 @@\n nltk\r\n unstructured\r\n chromadb==0.3.10\r\n numpy==1.22.0\r\n-\r\n+deeplake\r\n"
+                },
+                {
+                    "date": 1678568804154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,7 +3,7 @@\n langchain\r\n python-magic-bin\r\n nltk\r\n unstructured\r\n-chromadb==0.3.10\r\n-numpy==1.22.0\r\n+# chromadb==0.3.10\r\n+# numpy==1.22.0\r\n deeplake\r\n"
+                },
+                {
+                    "date": 1678568867561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,4 +6,6 @@\n unstructured\r\n # chromadb==0.3.10\r\n # numpy==1.22.0\r\n deeplake\r\n+requests\r\n+flask\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1678412159180,

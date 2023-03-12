@@ -7,7 +7,7 @@ def main():
     datasets_directory = 'data/amazon_reviews_text'
     db_directory = 'db/amazon_reviews'
 
-    query = "pizza not whole wheat"
+    query = "What are most efficient coffee grinders"
 
     gpt = Recommender(api_key=api_key)
     embedding = gpt.createEmbedding()
@@ -20,7 +20,7 @@ def main():
         docs = gpt.createDocs(datasets_directory=datasets_directory)
         db = gpt.createDatabase(docs=docs, embedding=embedding, db_dir=db_directory)
         
-    results = gpt.query_database(query, db)
+    results = gpt.query_database(query, db, 4)
 
     for result in results:
         print(result.page_content)
@@ -30,8 +30,6 @@ def add_documents():
     api_key = os.environ['OPENAI_API_KEY']
     datasets_directory = 'data/amazon_reviews_test_text'
     db_directory = 'db/amazon_reviews_test'
-
-    query = "HP laptop with good specs for programming"
 
     gpt = Recommender(api_key=api_key)
     embedding = gpt.createEmbedding()
@@ -44,11 +42,6 @@ def add_documents():
     else:
         print('database does not exists...')
         return
-        
-    results = gpt.query_database(query, db)
-
-    print(results[0].page_content)
-    print(results)
 
 if __name__ == "__main__":
     main()
